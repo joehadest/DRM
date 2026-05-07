@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+@theme {
+  /* Paleta baseada na identidade (azul + amarelo) */
+  --color-drm-blue-950: #071c33;
+  --color-drm-blue-800: #0a2f57;
+  --color-drm-blue-700: #0b3f77;
+  --color-drm-blue-500: #0f6fa0;
+
+  --color-drm-yellow-500: #f5c400;
+  --color-drm-yellow-400: #ffd34a;
+}
+
+/* Base mínima para garantir layout consistente */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+@keyframes right {
+  0% {
+    transform: translateX(calc(100% + 0.375rem));
+  }
+  50% {
+    transform: translateX(calc(100% + 0.375rem + 0.25rem));
+  }
+  100% {
+    transform: translateX(calc(100% + 0.375rem));
+  }
+}
+
+@keyframes drm-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.drm-marquee {
+  animation: drm-marquee 38s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drm-marquee {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Sneaky button (para WhatsApp no navbar) */
+.button06 {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  padding: 0 0.9rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  border: 1px solid color-mix(in oklab, var(--color-drm-yellow-500) 35%, transparent);
+  background: color-mix(in oklab, var(--color-drm-blue-800) 92%, white);
+  color: white;
+  box-shadow: 0 10px 20px -12px rgba(2, 6, 23, 0.25);
+  overflow: hidden;
+  transition:
+    transform 460ms cubic-bezier(0.25, 0.46, 0.45, 0.92),
+    box-shadow 460ms cubic-bezier(0.25, 0.46, 0.45, 0.92),
+    background-color 460ms cubic-bezier(0.25, 0.46, 0.45, 0.92),
+    color 460ms cubic-bezier(0.25, 0.46, 0.45, 0.92),
+    border-color 460ms cubic-bezier(0.25, 0.46, 0.45, 0.92);
+}
+.button06:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--color-drm-yellow-500) 45%, transparent),
+    0 10px 20px -12px rgba(2, 6, 23, 0.25);
+}
+.button06:hover {
+  transform: translateY(-2px);
+  background: var(--color-drm-yellow-500);
+  color: var(--color-drm-blue-950);
+  border-color: color-mix(in oklab, var(--color-drm-blue-800) 22%, transparent);
+  box-shadow: 0 18px 28px -16px rgba(2, 6, 23, 0.28);
+}
+
+.button06_bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.22),
+    transparent
+  );
+  transform: translateX(-120%);
+  transition: transform 700ms ease;
+  pointer-events: none;
+}
+.button06:hover .button06_bg {
+  transform: translateX(120%);
+}
+
+.button06_inner {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+.button06_text {
+  font-size: 0.875rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.button06_icon {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin-left: 0.5rem;
+}
+.button06_icon-svg {
+  width: 0.55rem;
+  height: 1rem;
+}
+.button06_icon-mid {
+  width: 1.2rem;
+  height: 2px;
+  background: currentColor;
+  opacity: 0.65;
+  border-radius: 9999px;
+  transform: translateX(calc(100% + 0.375rem));
+  animation: right 1200ms ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button06,
+  .button06_bg {
+    transition: none !important;
+  }
+  .button06_icon-mid {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  /* Não “zera” transições globalmente (mantém hovers suaves).
+     O reveal on scroll já respeita reduce-motion no hook. */
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}
