@@ -55,14 +55,14 @@ export function FeatureCarousel({
   if (len === 0) return null
 
   return (
-    <div className={cn('mx-auto w-full max-w-7xl md:p-6 lg:p-8', className)}>
-      <div className="relative flex min-h-[560px] flex-col overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white shadow-xl shadow-slate-900/10 lg:aspect-video lg:min-h-0 lg:flex-row lg:rounded-[3rem]">
+    <div className={cn('mx-auto w-full max-w-7xl sm:px-2 md:p-6 lg:p-8', className)}>
+      <div className="relative flex min-h-[480px] flex-col overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white shadow-xl shadow-slate-900/10 sm:min-h-[520px] sm:rounded-[2rem] lg:aspect-video lg:min-h-0 lg:flex-row lg:rounded-[3rem]">
         {/* Lista vertical — DRM azul */}
-        <div className="relative z-30 flex min-h-[320px] w-full flex-col items-start justify-center overflow-hidden bg-gradient-to-b from-drm-blue-800 to-drm-blue-950 px-6 py-10 md:min-h-[380px] md:px-12 lg:h-full lg:w-[42%] lg:min-h-0 lg:py-12 lg:pl-14 lg:pr-8">
+        <div className="relative z-30 flex min-h-[260px] w-full flex-col items-start justify-center overflow-hidden bg-gradient-to-b from-drm-blue-800 to-drm-blue-950 px-5 py-8 sm:min-h-[300px] sm:px-6 sm:py-10 md:min-h-[380px] md:px-12 lg:h-full lg:w-[42%] lg:min-h-0 lg:py-12 lg:pl-14 lg:pr-8">
           <div className="pointer-events-none absolute inset-x-0 top-0 z-40 h-14 bg-gradient-to-b from-drm-blue-800 via-drm-blue-800/90 to-transparent md:h-20 lg:h-16" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-40 h-14 bg-gradient-to-t from-drm-blue-950 via-drm-blue-950/90 to-transparent md:h-20 lg:h-16" />
 
-          <div className="relative z-20 flex h-[min(420px,55vh)] w-full items-center justify-center lg:h-full lg:justify-start">
+          <div className="relative z-20 flex h-[min(360px,52vh)] w-full items-center justify-center sm:h-[min(420px,55vh)] lg:h-full lg:justify-start">
             {items.map((feature, index) => {
               const isActive = index === currentIndex
               const distance = index - currentIndex
@@ -90,7 +90,7 @@ export function FeatureCarousel({
                     onMouseEnter={() => setPaused(true)}
                     onMouseLeave={() => setPaused(false)}
                     className={cn(
-                      'group relative flex cursor-pointer items-center gap-3 rounded-full border px-5 py-3 text-left transition-all duration-500 md:gap-4 md:px-8 md:py-4 lg:px-7',
+                      'group relative flex cursor-pointer items-center gap-3 rounded-full border px-4 py-2.5 text-left transition-all duration-500 sm:px-5 sm:py-3 md:gap-4 md:px-8 md:py-4 lg:px-7',
                       isActive
                         ? 'z-10 border-white bg-white text-drm-blue-800 shadow-lg'
                         : 'border-white/25 bg-transparent text-white/55 hover:border-white/45 hover:text-white',
@@ -104,7 +104,7 @@ export function FeatureCarousel({
                     >
                       <feature.icon className="h-[18px] w-[18px] shrink-0" />
                     </div>
-                    <span className="whitespace-nowrap text-xs font-medium uppercase tracking-tight md:text-[15px]">
+                    <span className="whitespace-nowrap text-[11px] font-medium uppercase tracking-tight sm:text-xs md:text-[15px]">
                       {feature.label}
                     </span>
                   </button>
@@ -115,8 +115,8 @@ export function FeatureCarousel({
         </div>
 
         {/* Painel visual */}
-        <div className="relative flex min-h-[420px] flex-1 flex-col items-center justify-center overflow-hidden border-t border-slate-200/60 bg-slate-50 px-5 py-12 md:min-h-[480px] md:px-10 lg:h-full lg:min-h-0 lg:border-l lg:border-t-0 lg:py-14">
-          <div className="relative flex aspect-[4/5] w-full max-w-[400px] items-center justify-center md:max-w-[420px]">
+        <div className="relative flex min-h-[360px] flex-1 flex-col items-center justify-center overflow-hidden border-t border-slate-200/60 bg-slate-50 px-4 py-10 sm:min-h-[420px] sm:px-5 sm:py-12 md:min-h-[480px] md:px-10 lg:h-full lg:min-h-0 lg:border-l lg:border-t-0 lg:py-14">
+          <div className="relative flex aspect-[4/5] w-full max-w-[340px] items-center justify-center sm:max-w-[400px] md:max-w-[420px]">
             {items.map((feature, index) => {
               const status = getCardStatus(index)
               const active = status === 'active'
@@ -176,12 +176,12 @@ export function FeatureCarousel({
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
                         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                        className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col justify-end bg-gradient-to-t from-drm-blue-950/95 via-drm-blue-950/45 to-transparent p-8 pt-28 md:p-10 md:pt-32"
+                        className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col justify-end bg-gradient-to-t from-drm-blue-950/95 via-drm-blue-950/45 to-transparent p-6 pt-24 sm:p-8 sm:pt-28 md:p-10 md:pt-32"
                       >
                         <div className="mb-3 w-fit rounded-full border border-white/25 bg-white/95 px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-drm-blue-950 shadow-md">
                           {index + 1} · {feature.label.split('—')[0]?.trim()}
                         </div>
-                        <p className="text-lg font-medium leading-snug tracking-tight text-white drop-shadow-md md:text-xl">
+                        <p className="text-base font-medium leading-snug tracking-tight text-white drop-shadow-md sm:text-lg md:text-xl">
                           {feature.description}
                         </p>
                       </motion.div>
