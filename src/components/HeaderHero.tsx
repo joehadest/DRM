@@ -1,12 +1,12 @@
 import {
   BriefcaseBusiness,
   Building2,
+  Clapperboard,
   FolderKanban,
   Info,
   Phone,
 } from 'lucide-react'
 import { company } from '../lib/company'
-import { buildWhatsAppLink } from '../lib/links'
 import { Hero } from './ui/hero'
 import { HoverGradientNavBar } from './ui/hover-gradient-nav-bar'
 import { HeroClientesMarqueeSection } from './HeroClientesMarqueeSection'
@@ -14,11 +14,7 @@ import { GlassmorphismTrustHero } from './ui/glassmorphism-trust-hero'
 import { SneakyButton } from './ui/sneaky-button'
 import { Container } from './ui'
 
-const primaryWhatsApp = company.contact.phones[0]
-const whatsappHref = buildWhatsAppLink(
-  primaryWhatsApp,
-  'Olá! Vim pelo site da DRM SERVIÇOS e gostaria de falar sobre um orçamento.',
-)
+const CONTACT_ANCHOR = '#contato'
 
 export function HeaderHero() {
   return (
@@ -77,6 +73,13 @@ export function HeaderHero() {
                         'radial-gradient(circle, rgba(245,196,0,0.20) 0%, rgba(15,111,160,0.12) 55%, rgba(7,28,51,0) 100%)',
                     },
                     {
+                      label: 'Vídeos',
+                      href: '#videos',
+                      icon: Clapperboard,
+                      gradient:
+                        'radial-gradient(circle, rgba(15,111,160,0.22) 0%, rgba(11,63,119,0.12) 52%, rgba(7,28,51,0) 100%)',
+                    },
+                    {
                       label: 'Contato',
                       href: '#contato',
                       icon: Phone,
@@ -87,22 +90,14 @@ export function HeaderHero() {
                 />
               </div>
 
-              <SneakyButton
-                href={whatsappHref}
-                target="_blank"
-                rel="noreferrer"
-                label="WhatsApp"
-              />
+              <SneakyButton href={CONTACT_ANCHOR} label="WhatsApp" />
             </div>
           </Container>
         </div>
 
         <Hero id="topo" backgroundImageSrc="/logo%20e%20banner/banner%20DRM.png">
           <h1 className="sr-only">{company.name}</h1>
-          <GlassmorphismTrustHero
-            whatsappHref={whatsappHref}
-            contactHref="#contato"
-          />
+          <GlassmorphismTrustHero contactHref={CONTACT_ANCHOR} />
         </Hero>
         <HeroClientesMarqueeSection id="grandes-obras-marquee" />
       </div>

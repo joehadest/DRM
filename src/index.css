@@ -53,6 +53,138 @@ body {
   }
 }
 
+@keyframes drm-contact-bubble {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.45);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-105vh) translateX(var(--bubble-drift, 0px)) scale(1.12);
+    opacity: 0;
+  }
+}
+
+.drm-contact-bubble {
+  animation: drm-contact-bubble var(--bubble-dur, 18s) ease-in-out infinite;
+  animation-delay: var(--bubble-delay, 0s);
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drm-contact-bubble {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}
+
+/* Realce após scroll por âncora (clique interno) */
+@keyframes drm-anchor-pulse {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(15, 111, 160, 0),
+      0 0 0 0 rgba(245, 196, 0, 0);
+  }
+  40% {
+    box-shadow:
+      0 0 0 3px rgba(245, 196, 0, 0.35),
+      0 18px 44px -20px rgba(15, 111, 160, 0.22);
+  }
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(15, 111, 160, 0),
+      0 0 0 0 rgba(245, 196, 0, 0);
+  }
+}
+
+.drm-anchor-pulse {
+  animation: drm-anchor-pulse 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drm-anchor-pulse {
+    animation: none !important;
+  }
+}
+
+/* Hover suave em cartões — corpo principal */
+.drm-card-interactive {
+  transition:
+    transform 0.65s cubic-bezier(0.22, 1, 0.32, 1),
+    box-shadow 0.6s cubic-bezier(0.22, 1, 0.32, 1),
+    border-color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.92);
+}
+.drm-card-interactive:hover {
+  transform: translateY(-6px) scale(1.006);
+  box-shadow:
+    0 28px 56px -24px rgba(7, 28, 51, 0.24),
+    0 14px 28px -14px rgba(15, 111, 160, 0.14);
+  border-color: rgba(15, 111, 160, 0.32);
+}
+
+/* Cartões menores / chips / linhas */
+.drm-card-interactive-sm {
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.32, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.32, 1),
+    border-color 0.45s ease-out;
+}
+.drm-card-interactive-sm:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px -18px rgba(7, 28, 51, 0.18);
+  border-color: rgba(15, 111, 160, 0.28);
+}
+
+/* Painéis vidro (hero / marquee) — borda clara */
+.drm-card-interactive-glass {
+  transition:
+    transform 0.65s cubic-bezier(0.22, 1, 0.32, 1),
+    box-shadow 0.65s cubic-bezier(0.22, 1, 0.32, 1),
+    border-color 0.5s ease-out;
+}
+.drm-card-interactive-glass:hover {
+  transform: translateY(-5px) scale(1.004);
+  border-color: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 32px 72px -34px rgba(7, 28, 51, 0.35),
+    0 12px 28px -14px rgba(15, 111, 160, 0.1);
+}
+
+/*
+ * Slides com Framer (transform no mesmo nó): só sombra/brilho no hover
+ */
+.drm-card-interactive-motion {
+  transition:
+    box-shadow 0.55s cubic-bezier(0.22, 1, 0.32, 1),
+    filter 0.45s ease-out;
+}
+.drm-card-interactive-motion:hover {
+  box-shadow:
+    0 40px 72px -36px rgba(7, 28, 51, 0.42),
+    0 16px 40px -18px rgba(15, 111, 160, 0.14);
+  filter: brightness(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drm-card-interactive,
+  .drm-card-interactive-sm,
+  .drm-card-interactive-glass,
+  .drm-card-interactive-motion {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease !important;
+  }
+  .drm-card-interactive:hover,
+  .drm-card-interactive-sm:hover,
+  .drm-card-interactive-glass:hover {
+    transform: none !important;
+    filter: none !important;
+  }
+  .drm-card-interactive-motion:hover {
+    filter: none !important;
+  }
+}
+
 /* Sneaky button (para WhatsApp no navbar) */
 .button06 {
   position: relative;

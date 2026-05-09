@@ -5,7 +5,6 @@ import { ArrowRight } from 'lucide-react'
 
 import { cn } from '../../lib/utils'
 import { Button } from './button'
-import { Input } from './input'
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -58,10 +57,9 @@ export function HeroGlassPanel({
       whileInView="visible"
       viewport={{ once: true, margin: '-8% 0px' }}
       className={cn(
-        'group relative overflow-hidden rounded-3xl border border-white/80 bg-white/75 p-6 backdrop-blur-xl md:p-8',
+        'drm-card-interactive-glass group relative overflow-hidden rounded-3xl border border-white/80 bg-white/75 p-6 backdrop-blur-xl md:p-8',
         'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.92),0_22px_50px_-30px_rgba(7,28,51,0.35)]',
         'ring-1 ring-slate-200/70 ring-offset-2 ring-offset-white/35',
-        'transition-[transform,box-shadow] duration-[520ms] ease-[cubic-bezier(0.25,0.46,0.45,0.92)] hover:-translate-y-1 hover:shadow-[0_28px_64px_-32px_rgba(7,28,51,0.38)]',
         className,
       )}
     >
@@ -104,7 +102,7 @@ export function HeroMiniHighlightList({
         <motion.li
           key={text}
           variants={listItemVariants}
-          className="rounded-2xl border border-slate-200/90 bg-gradient-to-br from-white/95 via-white to-slate-50/90 px-4 py-3.5 shadow-sm shadow-slate-900/5 backdrop-blur-sm transition-[transform,box-shadow,border-color] duration-[480ms] ease-[cubic-bezier(0.25,0.46,0.45,0.92)] hover:-translate-y-px hover:border-drm-blue-500/30 hover:shadow-md hover:shadow-slate-900/8"
+          className="drm-card-interactive-motion rounded-2xl border border-slate-200/90 bg-gradient-to-br from-white/95 via-white to-slate-50/90 px-4 py-3.5 shadow-sm shadow-slate-900/5 backdrop-blur-sm hover:border-drm-blue-500/30"
         >
           {text}
         </motion.li>
@@ -117,9 +115,10 @@ export interface CtaCardProps extends React.HTMLAttributes<HTMLDivElement> {
   imageSrc?: string
   title: string
   description: string
-  inputPlaceholder?: string
   buttonText: string
-  onLeadSubmit?: (email: string) => void
+  /** Destino do CTA principal (WhatsApp ou âncora de contato). E-mail não é utilizado. */
+  actionHref?: string
+  actionExternal?: boolean
   variant?: 'glass' | 'dark'
 }
 
@@ -130,31 +129,27 @@ const CtaCard = React.forwardRef<HTMLDivElement, CtaCardProps>(
       imageSrc,
       title,
       description,
-      inputPlaceholder = 'Seu e-mail',
       buttonText,
-      onLeadSubmit,
+      actionHref = '#contato',
+      actionExternal,
       variant = 'glass',
       ...props
     },
     ref,
   ) => {
-    const [email, setEmail] = React.useState('')
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      if (onLeadSubmit) {
-        onLeadSubmit(email)
-      }
-    }
-
     const isGlass = variant === 'glass'
+    const inferredExternal =
+      /^https?:\/\//i.test(actionHref) || actionHref.startsWith('tel:')
+    const isExternal = actionExternal ?? inferredExternal
 
     return (
       <div
         ref={ref}
         className={cn(
           'relative w-full overflow-hidden rounded-3xl shadow-lg shadow-slate-900/15',
-          isGlass ? 'border border-slate-200/80 bg-white/80 backdrop-blur-xl' : '',
+          isGlass
+            ? 'drm-card-interactive-glass border border-slate-200/80 bg-white/80 backdrop-blur-xl'
+            : 'drm-card-interactive-motion',
           className,
         )}
         {...props}
@@ -215,41 +210,34 @@ const CtaCard = React.forwardRef<HTMLDivElement, CtaCardProps>(
             className="flex w-full max-w-md flex-col items-stretch gap-4 justify-self-start md:justify-self-end"
             variants={itemVariants}
           >
-            <form
-              onSubmit={handleSubmit}
-              className="flex w-full flex-col gap-3 sm:flex-row sm:items-stretch"
+            <Button
+              asChild
+              size="lg"
+              className={cn(
+                'inline-flex w-full whitespace-nowrap sm:w-auto',
+                isGlass
+                  ? 'bg-drm-blue-800 text-white hover:bg-drm-blue-700'
+                  : 'border-0 bg-drm-yellow-500 text-drm-blue-950 hover:bg-drm-yellow-400',
+              )}
             >
-              <Input
-                type="email"
-                placeholder={inputPlaceholder}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                aria-label={inputPlaceholder}
-                required
-                className={cn(isGlass ? 'bg-white sm:flex-1' : 'flex-1 border-white/20 bg-white/10 text-white')}
-              />
-              <Button
-                type="submit"
-                size="lg"
-                className={cn(
-                  'inline-flex whitespace-nowrap',
-                  isGlass
-                    ? 'bg-drm-blue-800 text-white hover:bg-drm-blue-700'
-                    : 'border-0 bg-drm-yellow-500 text-drm-blue-950 hover:bg-drm-yellow-400',
-                )}
+              <a
+                href={actionHref}
+                {...(isExternal
+                  ? { target: '_blank', rel: 'noreferrer' }
+                  : {})}
               >
                 {buttonText}
                 <ArrowRight className="ml-2 h-4 w-4 shrink-0" aria-hidden />
-              </Button>
-            </form>
+              </a>
+            </Button>
             <p
               className={cn(
                 'text-xs',
                 !isGlass ? 'text-slate-300' : 'text-slate-500',
               )}
             >
-              Solicite contato pela equipe comercial da DRM — respondemos pelo
-              canal que preferir.
+              Solicite contato pela equipe comercial da DRM — respondemos por
+              WhatsApp e telefone.
             </p>
           </motion.div>
         </motion.div>

@@ -6,6 +6,13 @@ import { cn } from '../../lib/utils'
 
 const easeOut = [0.16, 1, 0.3, 1] as const
 
+const heroCtaSpring = {
+  type: 'spring' as const,
+  stiffness: 380,
+  damping: 28,
+  mass: 0.85,
+}
+
 const container = {
   hidden: { opacity: 0, y: 10 },
   show: {
@@ -44,10 +51,8 @@ function StatItem({ value, label }: { value: string; label: string }) {
 }
 
 export function GlassmorphismTrustHero({
-  whatsappHref,
   contactHref = '#contato',
 }: {
-  whatsappHref: string
   contactHref?: string
 }) {
   return (
@@ -89,15 +94,16 @@ export function GlassmorphismTrustHero({
           </motion.div>
 
           <motion.div variants={item} className="flex flex-col gap-3 sm:flex-row">
-            <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noreferrer"
+            <motion.a
+              href={contactHref}
+              whileHover={{ y: -5 }}
+              whileTap={{ scale: 0.98 }}
+              transition={heroCtaSpring}
               className={cn(
-                'group relative inline-flex h-12 items-center justify-center gap-2 overflow-hidden rounded-full px-7 text-sm font-bold',
+                'group relative inline-flex h-12 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-full px-7 text-sm font-bold',
                 'bg-drm-blue-800 text-white shadow-lg shadow-drm-blue-950/20 ring-1 ring-drm-yellow-500/45',
-                'transition-[transform,box-shadow,background-color,color] duration-[520ms] ease-[cubic-bezier(0.25,0.46,0.45,0.92)]',
-                'hover:-translate-y-1 hover:bg-drm-blue-700 hover:shadow-xl hover:shadow-drm-blue-950/25',
+                'transition-[box-shadow,background-color] duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.92)]',
+                'hover:bg-drm-blue-700 hover:shadow-xl hover:shadow-drm-blue-950/25',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-drm-yellow-500/60',
               )}
             >
@@ -106,28 +112,32 @@ export function GlassmorphismTrustHero({
                 className="pointer-events-none absolute inset-0 -translate-x-full bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.22),transparent)] transition-transform duration-[900ms] ease-[cubic-bezier(0.25,0.46,0.45,0.92)] group-hover:translate-x-full"
               />
               WhatsApp
-              <ArrowRight className="h-4 w-4 transition-transform duration-[520ms] ease-out group-hover:translate-x-1" />
-            </a>
+              <ArrowRight className="h-4 w-4 transition-transform duration-[520ms] ease-[cubic-bezier(0.22,1,0.32,1)] group-hover:translate-x-1" />
+            </motion.a>
 
-            <a
+            <motion.a
               href={contactHref}
+              whileHover={{ y: -5 }}
+              whileTap={{ scale: 0.98 }}
+              transition={heroCtaSpring}
               className={cn(
-                'inline-flex h-12 items-center justify-center gap-2 rounded-full px-7 text-sm font-bold',
+                'group inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-full px-7 text-sm font-bold',
                 'border border-slate-200 bg-white/75 text-slate-900 shadow-sm shadow-slate-900/10 backdrop-blur',
-                'transition-[transform,box-shadow,border-color] duration-[520ms] ease-[cubic-bezier(0.25,0.46,0.45,0.92)]',
-                'hover:-translate-y-1 hover:border-drm-blue-500/25 hover:shadow-md',
+                'transition-[box-shadow,border-color,background-color] duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.92)]',
+                'hover:border-drm-blue-500/35 hover:bg-white hover:shadow-md hover:shadow-slate-900/12',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-drm-yellow-500/60 focus-visible:ring-offset-2',
               )}
             >
               Falar com a DRM
-              <Phone className="h-4 w-4 text-drm-blue-800" />
-            </a>
+              <Phone className="h-4 w-4 text-drm-blue-800 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.32,1)] group-hover:-rotate-6 group-hover:scale-110" />
+            </motion.a>
           </motion.div>
         </div>
 
         {/* Right column */}
         <div className="flex flex-col justify-center lg:col-span-5">
           <motion.div variants={item}>
-            <div className="relative overflow-hidden rounded-3xl border border-white/80 bg-white/72 p-7 shadow-[0_28px_64px_-34px_rgba(7,28,51,0.35)] backdrop-blur-xl">
+            <div className="drm-card-interactive-glass relative overflow-hidden rounded-3xl border border-white/80 bg-white/72 p-7 shadow-[0_28px_64px_-34px_rgba(7,28,51,0.35)] backdrop-blur-xl">
               <div className="pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-drm-yellow-500/18 blur-3xl" />
               <div className="pointer-events-none absolute -bottom-28 -left-20 h-64 w-64 rounded-full bg-drm-blue-500/12 blur-3xl" />
 

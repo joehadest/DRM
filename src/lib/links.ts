@@ -10,8 +10,3 @@ export function buildWhatsAppLink(phone: string, message?: string): string {
   return `https://wa.me/${e164}${text}`
 }
 
-export function buildInstagramLink(handle: string): string {
-  const normalized = handle.replace(/^@/, '')
-  return `https://instagram.com/${normalized}`
-}
-

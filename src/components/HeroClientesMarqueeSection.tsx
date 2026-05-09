@@ -47,7 +47,7 @@ export function HeroClientesMarqueeSection({ id }: { id?: string }) {
             ease: [0.16, 1, 0.3, 1],
           }}
         >
-          <div className="relative mx-auto overflow-hidden rounded-3xl border border-white/80 bg-white/80 py-7 shadow-[0_22px_50px_-34px_rgba(7,28,51,0.28)] backdrop-blur-xl lg:max-w-4xl">
+          <div className="drm-card-interactive-glass relative mx-auto overflow-hidden rounded-3xl border border-white/80 bg-white/80 py-7 shadow-[0_22px_50px_-34px_rgba(7,28,51,0.28)] backdrop-blur-xl lg:max-w-4xl">
             <h2
               id="grandes-obras-marquee-heading"
               className="mb-5 px-7 text-base font-semibold text-slate-700"

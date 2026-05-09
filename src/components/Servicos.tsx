@@ -41,7 +41,7 @@ export function Servicos() {
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {services.map(({ name, Icon }, idx) => (
             <Reveal key={name} delayMs={70 * idx} y={12}>
-              <div className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-900/5 transition-[transform,box-shadow,border-color] duration-[520ms] ease-[cubic-bezier(0.25,0.46,0.45,0.92)] hover:-translate-y-1 hover:border-slate-300/95 hover:shadow-lg hover:shadow-slate-900/10">
+              <div className="group drm-card-interactive rounded-2xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-900/5">
                 <div className="flex items-start justify-between gap-4">
                   <div className="grid h-11 w-11 place-items-center rounded-xl bg-slate-50 ring-1 ring-slate-200 transition-[background-color] duration-[520ms] ease-[cubic-bezier(0.25,0.46,0.45,0.92)] group-hover:bg-white">
                     <Icon className="h-5 w-5 text-drm-blue-800 transition-transform duration-[520ms] ease-[cubic-bezier(0.25,0.46,0.45,0.92)] group-hover:scale-[1.05]" />
@@ -63,7 +63,7 @@ export function Servicos() {
         </div>
 
         <Reveal delayMs={120}>
-          <div className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-900/5">
+          <div className="mt-10 drm-card-interactive rounded-2xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-900/5">
             <p className="text-sm text-slate-700">
               <span className="font-semibold text-slate-950">Cobertura:</span>{' '}
               {company.services.join(' • ')}

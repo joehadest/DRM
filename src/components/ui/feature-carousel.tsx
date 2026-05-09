@@ -7,6 +7,23 @@ import { cn } from '../../lib/utils'
 
 const AUTO_PLAY_MS = 4000
 const ITEM_HEIGHT = 65
+/** Breakpoint Tailwind `lg` — abaixo disso o carrossel fica em coluna (chips verticais). */
+const SWIPE_DRAG_MAX_PX = 140
+const SWIPE_COMMIT_PX = 52
+
+function useSwipeEnabledMatch() {
+  const [enabled, setEnabled] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 1023px)')
+    const sync = () => setEnabled(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
+
+  return enabled
+}
 
 function wrap(min: number, max: number, v: number) {
   const range = max - min
@@ -29,6 +46,8 @@ export function FeatureCarousel({
   const currentIndex = ((step % len) + len) % len
 
   const next = useCallback(() => setStep((s) => s + 1), [])
+  const prev = useCallback(() => setStep((s) => s - 1), [])
+  const swipeEnabled = useSwipeEnabledMatch()
 
   useEffect(() => {
     if (paused || len <= 1) return
@@ -56,7 +75,7 @@ export function FeatureCarousel({
 
   return (
     <div className={cn('mx-auto w-full max-w-7xl sm:px-2 md:p-6 lg:p-8', className)}>
-      <div className="relative flex min-h-[480px] flex-col overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white shadow-xl shadow-slate-900/10 sm:min-h-[520px] sm:rounded-[2rem] lg:aspect-video lg:min-h-0 lg:flex-row lg:rounded-[3rem]">
+      <div className="drm-card-interactive relative flex min-h-[480px] flex-col overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white shadow-xl shadow-slate-900/10 sm:min-h-[520px] sm:rounded-[2rem] lg:aspect-video lg:min-h-0 lg:flex-row lg:rounded-[3rem]">
         {/* Lista vertical — DRM azul */}
         <div className="relative z-30 flex min-h-[260px] w-full flex-col items-start justify-center overflow-hidden bg-gradient-to-b from-drm-blue-800 to-drm-blue-950 px-5 py-8 sm:min-h-[300px] sm:px-6 sm:py-10 md:min-h-[380px] md:px-12 lg:h-full lg:w-[42%] lg:min-h-0 lg:py-12 lg:pl-14 lg:pr-8">
           <div className="pointer-events-none absolute inset-x-0 top-0 z-40 h-14 bg-gradient-to-b from-drm-blue-800 via-drm-blue-800/90 to-transparent md:h-20 lg:h-16" />
@@ -116,11 +135,33 @@ export function FeatureCarousel({
 
         {/* Painel visual */}
         <div className="relative flex min-h-[360px] flex-1 flex-col items-center justify-center overflow-hidden border-t border-slate-200/60 bg-slate-50 px-4 py-10 sm:min-h-[420px] sm:px-5 sm:py-12 md:min-h-[480px] md:px-10 lg:h-full lg:min-h-0 lg:border-l lg:border-t-0 lg:py-14">
-          <div className="relative flex aspect-[4/5] w-full max-w-[340px] items-center justify-center sm:max-w-[400px] md:max-w-[420px]">
+          <motion.div
+            className={cn(
+              'relative flex aspect-[4/5] w-full max-w-[340px] items-center justify-center sm:max-w-[400px] md:max-w-[420px]',
+              swipeEnabled && len > 1 && 'cursor-grab touch-pan-x active:cursor-grabbing',
+            )}
+            drag={swipeEnabled && len > 1 ? 'x' : false}
+            dragConstraints={{ left: -SWIPE_DRAG_MAX_PX, right: SWIPE_DRAG_MAX_PX }}
+            dragElastic={0.12}
+            dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 420, bounceDamping: 28 }}
+            onDragStart={() => swipeEnabled && len > 1 && setPaused(true)}
+            onDragEnd={(_, { offset }) => {
+              if (!swipeEnabled || len <= 1) return
+              setPaused(false)
+              if (offset.x > SWIPE_COMMIT_PX) prev()
+              else if (offset.x < -SWIPE_COMMIT_PX) next()
+            }}
+            aria-label={
+              swipeEnabled && len > 1
+                ? 'Arraste para os lados para trocar o projeto'
+                : undefined
+            }
+          >
             {items.map((feature, index) => {
               const status = getCardStatus(index)
               const active = status === 'active'
-              const prev = status === 'prev'
+              const isPrev = status === 'prev'
               const nextCard = status === 'next'
               const Icon = feature.icon
 
@@ -129,11 +170,11 @@ export function FeatureCarousel({
                   key={feature.id}
                   initial={false}
                   animate={{
-                    x: active ? 0 : prev ? -90 : nextCard ? 90 : 0,
-                    scale: active ? 1 : prev || nextCard ? 0.88 : 0.72,
-                    opacity: active ? 1 : prev || nextCard ? 0.45 : 0,
-                    rotate: prev ? -2.5 : nextCard ? 2.5 : 0,
-                    zIndex: active ? 20 : prev || nextCard ? 10 : 0,
+                    x: active ? 0 : isPrev ? -90 : nextCard ? 90 : 0,
+                    scale: active ? 1 : isPrev || nextCard ? 0.88 : 0.72,
+                    opacity: active ? 1 : isPrev || nextCard ? 0.45 : 0,
+                    rotate: isPrev ? -2.5 : nextCard ? 2.5 : 0,
+                    zIndex: active ? 20 : isPrev || nextCard ? 10 : 0,
                     pointerEvents: active ? 'auto' : 'none',
                   }}
                   transition={{
@@ -142,7 +183,7 @@ export function FeatureCarousel({
                     damping: 26,
                     mass: 0.85,
                   }}
-                  className="absolute inset-0 origin-center overflow-hidden rounded-[1.75rem] border-4 border-white bg-white shadow-2xl md:rounded-[2.25rem] md:border-[10px]"
+                  className="drm-card-interactive-motion absolute inset-0 origin-center overflow-hidden rounded-[1.75rem] border-4 border-white bg-white shadow-2xl md:rounded-[2.25rem] md:border-[10px]"
                 >
                   {feature.image ? (
                     <img
@@ -160,7 +201,7 @@ export function FeatureCarousel({
                         !active && 'opacity-80',
                       )}
                     >
-                      <div className="rounded-2xl bg-white/90 p-5 shadow-lg ring-1 ring-slate-200/80">
+                      <div className="drm-card-interactive-sm rounded-2xl bg-white/90 p-5 shadow-lg ring-1 ring-slate-200/80">
                         <Icon className="h-14 w-14 text-drm-blue-800 md:h-16 md:w-16" />
                       </div>
                       <p className="text-center text-xs font-semibold uppercase tracking-widest text-slate-500">
@@ -202,7 +243,7 @@ export function FeatureCarousel({
                 </motion.div>
               )
             })}
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
