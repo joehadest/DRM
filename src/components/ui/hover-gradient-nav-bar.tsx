@@ -54,8 +54,8 @@ export function HoverGradientNavBar({
     <motion.nav
       className={cn(
         'px-2 py-1.5 rounded-full',
-        'bg-white/80 backdrop-blur-lg',
-        'border border-slate-200/80 shadow-sm shadow-slate-900/10',
+        'bg-white/10 backdrop-blur-xl',
+        'border border-white/30 shadow-sm shadow-slate-900/10',
         className,
       )}
       initial="initial"

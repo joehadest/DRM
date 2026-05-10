@@ -9,6 +9,44 @@
 
   --color-drm-yellow-500: #f5c400;
   --color-drm-yellow-400: #ffd34a;
+
+  /* Animações do Dialog */
+  --animate-dialog-overlay-in: dialog-overlay-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-dialog-overlay-out: dialog-overlay-out 0.2s ease-in forwards;
+  --animate-dialog-content-in: dialog-content-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-dialog-content-out: dialog-content-out 0.2s ease-in forwards;
+}
+
+@keyframes dialog-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes dialog-overlay-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes dialog-content-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 16px)) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes dialog-content-out {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 16px)) scale(0.94);
+  }
 }
 
 /* Base mínima para garantir layout consistente */

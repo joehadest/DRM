@@ -1,106 +1,57 @@
-import {
-  BriefcaseBusiness,
-  Building2,
-  Clapperboard,
-  FolderKanban,
-  Info,
-  Phone,
-} from 'lucide-react'
+import { MessageCircle } from 'lucide-react'
 import { company } from '../lib/company'
-import { Hero } from './ui/hero'
-import { HoverGradientNavBar } from './ui/hover-gradient-nav-bar'
-import { HeroClientesMarqueeSection } from './HeroClientesMarqueeSection'
-import { GlassmorphismTrustHero } from './ui/glassmorphism-trust-hero'
-import { SneakyButton } from './ui/sneaky-button'
-import { Container } from './ui'
+import { AnimatedHero } from './ui/animated-hero-section-1'
+import { GetStartedButton } from './ui/get-started-button'
 
-const CONTACT_ANCHOR = '#contato'
+const HERO_BANNER = '/logo%20e%20banner/banner%20novo.jpeg'
 
 export function HeaderHero() {
+  const scrollTo = (id: string) => {
+    const el = document.querySelector(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
-    <header className="relative isolate overflow-hidden">
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(80%_60%_at_50%_0%,rgba(15,111,160,0.28),transparent_60%),radial-gradient(60%_60%_at_12%_12%,rgba(245,196,0,0.18),transparent_55%),radial-gradient(60%_60%_at_88%_18%,rgba(11,63,119,0.22),transparent_55%)]" />
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
-
-      <div className="relative z-10">
-        <div className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/80 backdrop-blur">
-          <Container>
-            <div className="flex items-center justify-between py-4">
-              <a
-                href="#topo"
-                className="group inline-flex items-center gap-3 font-semibold tracking-tight text-slate-950"
-              >
-                <img
-                  src="/logo%20e%20banner/logo%20DRM.png"
-                  alt={company.name}
-                  className="h-10 w-auto"
-                  loading="eager"
-                  decoding="async"
-                />
-                <span className="sr-only">{company.name}</span>
-              </a>
-
-              <div className="hidden md:flex">
-                <HoverGradientNavBar
-                  items={[
-                    {
-                      label: 'Sobre',
-                      href: '#sobre',
-                      icon: Info,
-                      gradient:
-                        'radial-gradient(circle, rgba(15,111,160,0.22) 0%, rgba(10,47,87,0.10) 52%, rgba(7,28,51,0) 100%)',
-                    },
-                    {
-                      label: 'Serviços',
-                      href: '#servicos',
-                      icon: BriefcaseBusiness,
-                      gradient:
-                        'radial-gradient(circle, rgba(245,196,0,0.22) 0%, rgba(245,196,0,0.10) 48%, rgba(245,196,0,0) 100%)',
-                      iconClassName: 'group-hover:text-drm-yellow-500',
-                    },
-                    {
-                      label: 'Portfólio',
-                      href: '#portfolio',
-                      icon: Building2,
-                      gradient:
-                        'radial-gradient(circle, rgba(11,63,119,0.18) 0%, rgba(15,111,160,0.10) 56%, rgba(7,28,51,0) 100%)',
-                    },
-                    {
-                      label: 'Projetos',
-                      href: '#projetos',
-                      icon: FolderKanban,
-                      gradient:
-                        'radial-gradient(circle, rgba(245,196,0,0.20) 0%, rgba(15,111,160,0.12) 55%, rgba(7,28,51,0) 100%)',
-                    },
-                    {
-                      label: 'Vídeos',
-                      href: '#videos',
-                      icon: Clapperboard,
-                      gradient:
-                        'radial-gradient(circle, rgba(15,111,160,0.22) 0%, rgba(11,63,119,0.12) 52%, rgba(7,28,51,0) 100%)',
-                    },
-                    {
-                      label: 'Contato',
-                      href: '#contato',
-                      icon: Phone,
-                      gradient:
-                        'radial-gradient(circle, rgba(245,196,0,0.18) 0%, rgba(15,111,160,0.10) 55%, rgba(7,28,51,0) 100%)',
-                    },
-                  ]}
-                />
-              </div>
-
-              <SneakyButton href={CONTACT_ANCHOR} label="WhatsApp" />
-            </div>
-          </Container>
-        </div>
-
-        <Hero id="topo" backgroundImageSrc="/logo%20e%20banner/banner%20DRM.png">
-          <h1 className="sr-only">{company.name}</h1>
-          <GlassmorphismTrustHero contactHref={CONTACT_ANCHOR} />
-        </Hero>
-        <HeroClientesMarqueeSection id="grandes-obras-marquee" />
-      </div>
+    <header id="topo" className="relative">
+      <AnimatedHero
+        backgroundImageUrl={HERO_BANNER}
+        logo={
+          <>
+            <img
+              src="/logo%20e%20banner/logo%20DRM.png"
+              alt={company.name}
+              className="h-9 w-auto"
+              loading="eager"
+              decoding="async"
+            />
+            <span className="sr-only">{company.name}</span>
+          </>
+        }
+        navLinks={[
+          { label: 'Sobre', href: '#sobre' },
+          { label: 'Serviços', href: '#servicos' },
+          { label: 'Projetos', href: '#projetos' },
+          { label: 'Vídeos', href: '#videos' },
+          { label: 'Portfólio', href: '#portfolio' },
+          { label: 'Contato', href: '#contato' },
+        ]}
+        topRightAction={
+          <button
+            type="button"
+            onClick={() => scrollTo('#contato')}
+            className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-white/20 active:translate-y-0 group-data-[scrolled=true]:border-drm-yellow-500/60 group-data-[scrolled=true]:bg-drm-yellow-500/20 group-data-[scrolled=true]:text-drm-yellow-400 group-data-[scrolled=true]:hover:bg-drm-yellow-500/30"
+          >
+            <MessageCircle className="h-4 w-4 shrink-0" />
+            WhatsApp
+          </button>
+        }
+        title="Mão de obra especializada para a indústria"
+        description={`${company.name}: foco em segurança, qualidade e entrega. Experiência em grandes obras, com time preparado para atuar direto ou via terceirizadas.`}
+        ctaButton={{
+          text: 'Saiba mais',
+          onClick: () => scrollTo('#sobre'),
+        }}
+      />
     </header>
   )
 }

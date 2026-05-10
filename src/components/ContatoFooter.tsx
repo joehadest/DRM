@@ -1,11 +1,11 @@
 import { ContactSection } from './ui/contact'
-import { CinematicFooter } from './ui/motion-footer'
+import { HoverFooter } from './ui/hover-footer'
 
 export function ContatoFooter() {
   return (
     <>
       <ContactSection />
-      <CinematicFooter />
+      <HoverFooter />
     </>
   )
 }

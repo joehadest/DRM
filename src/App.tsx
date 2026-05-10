@@ -12,11 +12,11 @@ export default function App() {
   useEffect(() => initSmoothAnchorNavigation(), [])
 
   return (
-    <div className="min-h-dvh bg-white text-slate-900">
+    <div className="min-h-dvh bg-slate-50 text-slate-900">
       <HeaderHero />
       <main>
-        <Servicos />
         <Projetos />
+        <Servicos />
         <Videos />
         <Portfolio />
         <Sobre />

@@ -11,9 +11,6 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
 
-/** Mesmo asset do `<Hero backgroundImageSrc={...}>` em `HeaderHero.tsx`. */
-const HERO_BANNER_IMAGE_SRC = '/logo%20e%20banner/banner%20DRM.png'
-
 const STYLES = `
 @keyframes footer-scroll-marquee {
   from { transform: translateX(0); }
@@ -243,14 +240,15 @@ export function CinematicFooter() {
           <footer className="cinematic-footer-wrapper fixed bottom-0 left-0 flex h-[min(100dvh,920px)] w-full flex-col justify-between overflow-hidden text-slate-900">
             <div className="pointer-events-none absolute inset-0 z-0">
               <img
-                src={HERO_BANNER_IMAGE_SRC}
+                src="/projetos/andaimes%20e%20acesso/andaimes%20e%20acesso.jpeg"
                 alt=""
                 aria-hidden
-                className="h-full w-full object-cover object-[8%_center] saturate-110 contrast-110 sm:object-[14%_center] lg:object-[18%_center]"
+                className="h-full w-full object-cover object-[50%_45%] saturate-110 contrast-110"
                 loading="lazy"
                 decoding="async"
               />
-              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.92),rgba(255,255,255,0.78)_42%,rgba(255,255,255,0.32)_72%,rgba(255,255,255,0.10))]" />
+              <div className="absolute inset-0 bg-black/40" />
+              <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_0%,rgba(15,111,160,0.24),transparent_60%),radial-gradient(60%_60%_at_12%_12%,rgba(245,196,0,0.16),transparent_55%),radial-gradient(60%_60%_at_88%_18%,rgba(11,63,119,0.18),transparent_55%)]" />
             </div>
 
             <div
@@ -276,17 +274,17 @@ export function CinematicFooter() {
                 Pronto para o próximo projeto?
               </h2>
 
-              <p className="mb-8 max-w-xl text-center text-sm leading-relaxed text-slate-700 md:text-base">
-                <span className="inline-flex items-start justify-center gap-2 text-left">
+              <div className="mb-8">
+                <p className="mx-auto inline-flex max-w-xl items-start justify-center gap-2 rounded-2xl border border-white/35 bg-white/70 px-5 py-4 text-center text-sm leading-relaxed text-slate-800 shadow-lg shadow-slate-900/10 backdrop-blur-md md:text-base">
                   <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-drm-blue-800" />
-                  <span>
+                  <span className="text-left">
                     {company.contact.address}
-                    <span className="mt-1 block text-xs text-slate-600">
+                    <span className="mt-1 block text-xs text-slate-700">
                       CEP {company.contact.cep}
                     </span>
                   </span>
-                </span>
-              </p>
+                </p>
+              </div>
 
               <div
                 ref={linksRef}
@@ -325,11 +323,11 @@ export function CinematicFooter() {
             </div>
 
             <div className="relative z-20 flex w-full flex-col items-center justify-between gap-6 px-5 pb-8 pt-4 md:flex-row md:px-10 md:pb-10">
-              <div className="order-2 text-center text-[10px] font-semibold uppercase tracking-widest text-slate-500 md:order-1 md:text-left md:text-xs">
+              <div className="order-2 rounded-2xl border border-white/35 bg-white/70 px-5 py-4 text-center text-[10px] font-semibold uppercase tracking-widest text-slate-700 shadow-lg shadow-slate-900/10 backdrop-blur-md md:order-1 md:text-left md:text-xs">
                 <p>
                   © {year} {company.name}. Todos os direitos reservados.
                 </p>
-                <p className="mt-2 normal-case tracking-normal text-slate-600">
+                <p className="mt-2 normal-case tracking-normal text-slate-700">
                   CNPJ {company.contact.cnpj}
                 </p>
               </div>
@@ -342,7 +340,7 @@ export function CinematicFooter() {
               </MagneticButton>
             </div>
 
-            <p className="relative z-20 mx-auto max-w-3xl px-6 pb-6 text-center text-xs leading-relaxed text-slate-600 md:text-sm">
+            <p className="relative z-20 mx-auto mb-6 max-w-3xl rounded-2xl border border-white/35 bg-white/70 px-6 py-4 text-center text-xs leading-relaxed text-slate-800 shadow-lg shadow-slate-900/10 backdrop-blur-md md:text-sm">
               {company.closingMessage}
             </p>
           </footer>
