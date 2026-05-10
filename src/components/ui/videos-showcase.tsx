@@ -57,10 +57,23 @@ export function VideoShowcase({
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
           />
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.10),rgba(2,6,23,0.65),rgba(2,6,23,0.85))]" />
+          <div
+            className={cn(
+              'pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.10),rgba(2,6,23,0.65),rgba(2,6,23,0.85))] transition-opacity duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]',
+              isPlaying ? 'opacity-40' : 'opacity-100',
+            )}
+          />
 
           <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-6 p-6 md:p-7">
-            <div className="min-w-0">
+            <div
+              className={cn(
+                'min-w-0 transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]',
+                isPlaying
+                  ? 'pointer-events-none translate-y-2 opacity-0'
+                  : 'translate-y-0 opacity-100',
+              )}
+              aria-hidden={isPlaying}
+            >
               <h3 className="truncate text-lg font-extrabold tracking-tight text-white md:text-xl">
                 {title}
               </h3>
