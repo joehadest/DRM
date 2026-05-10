@@ -108,6 +108,13 @@ export function ContactSection({
       id="contato"
       className="relative w-full scroll-mt-24 overflow-hidden bg-drm-blue-950"
     >
+      {backgroundImageSrc ? (
+        <div
+          className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center opacity-20"
+          style={{ backgroundImage: `url(${backgroundImageSrc})` }}
+          aria-hidden
+        />
+      ) : null}
       {/* Subtle floating particles */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
         {BUBBLE_PRESETS.map((b, i) => (

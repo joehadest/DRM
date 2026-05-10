@@ -1,11 +1,13 @@
-import { Building2, Handshake, Images, MapPin, ShieldCheck } from 'lucide-react'
+import { ArrowRight, Building2, Handshake, Images, MessageCircle, MapPin, ShieldCheck } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { company } from '../lib/company'
+import { buildWhatsAppLink } from '../lib/links'
 import { PROJECT_SLIDES } from '../data/projects'
 import { Reveal } from './Reveal'
 import { Container, SectionHeading } from './ui'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -153,48 +155,84 @@ export function Portfolio() {
                         </button>
                       </DialogTrigger>
 
-                      <DialogContent className="max-w-3xl overflow-hidden p-0">
-                        <div className="grid grid-cols-1 md:grid-cols-2">
-                          <div className="relative min-h-[240px] bg-slate-950">
-                            {g.image ? (
-                              <img
-                                src={g.image}
-                                alt={g.title}
-                                className="absolute inset-0 h-full w-full object-cover"
-                                loading="lazy"
-                                decoding="async"
-                              />
-                            ) : null}
-                            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.08),rgba(2,6,23,0.55),rgba(2,6,23,0.78))]" />
-                          </div>
-                          <div className="p-6 md:p-7">
-                            <DialogHeader>
-                              <DialogTitle className="text-2xl font-black tracking-tight">
+                      <DialogContent className="max-w-2xl overflow-hidden p-0">
+                        {/* Imagem de capa em destaque */}
+                        {g.image ? (
+                          <div className="relative h-56 w-full overflow-hidden sm:h-64">
+                            <img
+                              src={g.image}
+                              alt={g.title}
+                              className="absolute inset-0 h-full w-full object-cover"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-drm-blue-950 via-drm-blue-950/40 to-transparent" />
+                            {/* Badge no topo da imagem */}
+                            <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-bold tracking-widest text-white backdrop-blur-sm">
+                              <g.icon className="h-3.5 w-3.5 text-drm-yellow-500" />
+                              DRM SERVIÇOS
+                            </div>
+                            {/* Título sobre a imagem */}
+                            <div className="absolute inset-x-0 bottom-0 p-5">
+                              <h2 className="text-2xl font-black tracking-tight text-white drop-shadow-lg sm:text-3xl">
                                 {g.title}
-                              </DialogTitle>
-                              <DialogDescription className="text-base leading-relaxed">
-                                {g.description}
-                              </DialogDescription>
-                            </DialogHeader>
-
-                            <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                              <p className="text-sm leading-relaxed text-slate-700">
-                                Se você quer uma equipe confiável para execução em campo, fale com a DRM e
-                                receba um direcionamento rápido para o seu cenário.
-                              </p>
+                              </h2>
                             </div>
+                          </div>
+                        ) : null}
 
-                            <div className="mt-6 flex flex-wrap gap-2">
-                              <span className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-700">
-                                Segurança
+                        {/* Conteúdo */}
+                        <div className="p-6 md:p-7">
+                          <DialogHeader className="sr-only">
+                            <DialogTitle>{g.title}</DialogTitle>
+                            <DialogDescription>{g.description}</DialogDescription>
+                          </DialogHeader>
+
+                          <p className="text-sm leading-relaxed text-white/70 sm:text-base">
+                            {g.description}
+                          </p>
+
+                          {/* Tags */}
+                          <div className="mt-5 flex flex-wrap gap-2">
+                            {['Mão de obra especializada', 'Segurança NR', 'Qualidade industrial'].map((tag) => (
+                              <span
+                                key={tag}
+                                className="inline-flex items-center rounded-full border border-drm-yellow-500/25 bg-drm-yellow-500/10 px-3 py-1 text-xs font-semibold text-drm-yellow-400"
+                              >
+                                {tag}
                               </span>
-                              <span className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-700">
-                                Qualidade
-                              </span>
-                              <span className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-700">
-                                Industrial
-                              </span>
-                            </div>
+                            ))}
+                          </div>
+
+                          {/* Localização */}
+                          <div className="mt-5 flex items-center gap-2 text-sm text-white/40">
+                            <MapPin className="h-4 w-4 shrink-0 text-drm-yellow-500/60" />
+                            Cabo de Santo Agostinho · Pernambuco
+                          </div>
+
+                          {/* CTA */}
+                          <div className="mt-6 flex flex-col gap-3 border-t border-white/8 pt-6 sm:flex-row">
+                            <a
+                              href={buildWhatsAppLink(
+                                company.contact.phones[0] ?? '',
+                                `Olá! Tenho interesse no serviço de ${g.title}. Poderia me dar mais informações?`,
+                              )}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl bg-drm-yellow-500 px-5 py-3 text-sm font-bold text-drm-blue-950 transition-all duration-200 hover:-translate-y-0.5 hover:bg-drm-yellow-400"
+                            >
+                              <MessageCircle className="h-4 w-4" />
+                              Falar pelo WhatsApp
+                            </a>
+                            <DialogClose asChild>
+                              <a
+                                href="#contato"
+                                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white/80 transition-all duration-200 hover:bg-white/10 hover:text-white"
+                              >
+                                Ver formulário
+                                <ArrowRight className="h-4 w-4" />
+                              </a>
+                            </DialogClose>
                           </div>
                         </div>
                       </DialogContent>

@@ -61,7 +61,7 @@ export function AnimatedHero({
 }: AnimatedHeroProps) {
   const rootRef = React.useRef<HTMLDivElement>(null)
   const [isHeroVisible, setIsHeroVisible] = React.useState(true)
-  const [isFooterVisible, setIsFooterVisible] = React.useState(false)
+  const [isFooterVisible] = React.useState(false)
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [activeSection, setActiveSection] = React.useState<string>('')
   const [scrollProgress, setScrollProgress] = React.useState(0)
@@ -78,17 +78,6 @@ export function AnimatedHero({
     return () => io.disconnect()
   }, [])
 
-  // Footer visibility
-  React.useEffect(() => {
-    const footer = document.getElementById('fechamento-site')
-    if (!footer) return
-    const io = new IntersectionObserver(
-      ([entry]) => setIsFooterVisible(entry.isIntersecting),
-      { root: null, threshold: 0.05 },
-    )
-    io.observe(footer)
-    return () => io.disconnect()
-  }, [])
 
   // Active section tracking
   React.useEffect(() => {

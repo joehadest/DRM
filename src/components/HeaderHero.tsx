@@ -1,7 +1,6 @@
 import { MessageCircle } from 'lucide-react'
 import { company } from '../lib/company'
 import { AnimatedHero } from './ui/animated-hero-section-1'
-import { GetStartedButton } from './ui/get-started-button'
 
 const HERO_BANNER = '/logo%20e%20banner/banner%20novo.jpeg'
 
