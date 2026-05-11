@@ -1,7 +1,22 @@
-/** Vídeo hospedado em `public/projetos/videos/` — nome do arquivo com acentos preservados na URL codificada. */
+/** Vídeos hospedados em `public/projetos/videos/` — nomes com acentos preservados na URL codificada. */
+export const DRM_SLIDE_VIDEO_SRC = '/projetos/videos/slide.mp4'
+
 export const DRM_CANTEIRO_PADRAO_VIDEO_SRC = encodeURI(
   '/projetos/videos/canteiro padrão da drm.mp4',
 )
+
+export const drmSlideSpotlight = {
+  title: 'DRM — Conheça a empresa',
+  description:
+    'Uma visão geral da DRM: nossa história, estrutura, equipe e os segmentos em que atuamos com excelência.',
+  items: [
+    { id: 's1', text: 'Empresa especializada em montagem e manutenção industrial' },
+    { id: 's2', text: 'Equipe técnica qualificada e comprometida com a segurança' },
+    { id: 's3', text: 'Atuação em múltiplos segmentos da indústria' },
+    { id: 's4', text: 'Soluções completas do planejamento à entrega' },
+  ],
+  videoUrl: DRM_SLIDE_VIDEO_SRC,
+} as const
 
 export const drmCanteiroSpotlight = {
   title: 'Canteiro padrão DRM — fabricação de peças de campo',
