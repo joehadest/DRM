@@ -4,7 +4,7 @@ export const company = {
   founder: 'Daniel Ferreira da Silva',
   partner: 'Clebio Guedes Ribeiro',
   story:
-    'Morando há 16 anos em Pernambuco, decidiu abrir o empreendimento em Cabo de Santo Agostinho para gerar oportunidades de trabalho para pais de família na região.',
+    'Morando há 16 anos em Pernambuco, decidiu abrir o empreendimento em Cabo de Santo Agostinho para gerar oportunidades de trabalho aos trabalhadores da região. Sempre que possível, atendemos também as empresas com nossa mão de obra qualificada, para que fiquem satisfeitas com o nosso serviço.',
   objective:
     'Ajudar os clientes a se destacarem com mão de obra especializada em um mercado competitivo, garantindo a satisfação das empresas industriais.',
   services: [
