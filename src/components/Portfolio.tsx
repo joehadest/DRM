@@ -28,7 +28,7 @@ function StatPill({
   value: string
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-sm transition-colors duration-200 hover:bg-white/10">
+    <div className="drm-card-interactive-sm flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-sm hover:bg-white/10">
       <div className="grid h-10 w-10 place-items-center rounded-xl bg-drm-yellow-500/10 ring-1 ring-drm-yellow-500/25">
         <Icon className="h-5 w-5 text-drm-yellow-500" />
       </div>
@@ -118,7 +118,7 @@ export function Portfolio() {
                       <DialogTrigger asChild>
                         <button
                           type="button"
-                          className="group relative w-full cursor-pointer overflow-hidden rounded-3xl border border-white/10 bg-white/5 text-left transition-colors duration-200 hover:border-white/20 hover:bg-white/10"
+                          className="drm-card-interactive group relative w-full cursor-pointer overflow-hidden rounded-3xl border border-white/10 bg-white/5 text-left hover:border-white/20 hover:bg-white/10"
                         >
                           <div className="relative h-48 w-full overflow-hidden bg-slate-950">
                             {g.image ? (
@@ -263,7 +263,7 @@ export function Portfolio() {
                   {company.portfolio.bigClients.map((item) => (
                     <li
                       key={item}
-                      className="flex gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3.5 text-sm leading-snug text-white/75 transition-colors duration-200 hover:bg-white/10"
+                      className="drm-card-interactive-sm flex gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3.5 text-sm leading-snug text-white/75 hover:bg-white/10"
                     >
                       <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-drm-yellow-500" aria-hidden />
                       <span>{item}</span>
@@ -284,7 +284,7 @@ export function Portfolio() {
                 </p>
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
                   {['Planejamento', 'Mobilização', 'Execução', 'Entrega'].map((t) => (
-                    <div key={t} className="rounded-2xl border border-white/10 bg-white/5 p-4 transition-colors duration-200 hover:bg-white/10">
+                    <div key={t} className="drm-card-interactive-sm rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10">
                       <p className="text-sm font-semibold text-white">{t}</p>
                       <p className="mt-1 text-sm text-white/50">
                         Rotina clara e comunicação direta.
@@ -316,7 +316,7 @@ export function Portfolio() {
                 {company.portfolio.partners.map((item) => (
                   <li
                     key={item}
-                    className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3.5 text-center text-sm font-semibold text-white/75 transition-colors duration-200 hover:bg-white/10 hover:text-white"
+                    className="drm-card-interactive-sm rounded-2xl border border-white/10 bg-white/5 px-4 py-3.5 text-center text-sm font-semibold text-white/75 hover:bg-white/10 hover:text-white"
                   >
                     {item}
                   </li>

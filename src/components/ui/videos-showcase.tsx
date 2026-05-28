@@ -112,9 +112,9 @@ export function VideoShowcase({
               {safeItems.map((it) => (
                 <div
                   key={it.id}
-                  className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition-colors duration-200 hover:bg-white/10"
+                  className="drm-card-interactive-sm group flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10"
                 >
-                  <BadgeCheck className="mt-0.5 h-5 w-5 shrink-0 text-drm-yellow-500" />
+                  <BadgeCheck className="mt-0.5 h-5 w-5 shrink-0 text-drm-yellow-500 transition-transform duration-300 group-hover:scale-110" />
                   <p className="text-sm leading-relaxed text-white/75">{it.text}</p>
                 </div>
               ))}

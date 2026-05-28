@@ -40,6 +40,10 @@ export const company = {
     cep: '54.510-180',
     cnpj: '41.711-440/0001-34',
     phones: ['(81) 9 8183-5789', '(84) 9 9147-3206'],
+    instagram: {
+      handle: '@danielferreirada.drm',
+      url: 'https://www.instagram.com/danielferreirada.drm/',
+    },
   },
   closingMessage:
     'Nós da DRM Esperamos ter uma oportunidade de trabalho para nos conhecermos melhor!',

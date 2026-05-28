@@ -40,7 +40,9 @@ function calculateGap(width: number) {
   const maxWidth = 1456
   const minGap = 60
   const maxGap = 86
-  if (width <= minWidth) return minGap
+  // Em telas menores (mobile/tablet) o gap acompanha a largura do container
+  // para os cards laterais não invadirem o card central.
+  if (width <= minWidth) return Math.max(34, Math.min(minGap, width * 0.12))
   if (width >= maxWidth) return Math.max(minGap, maxGap + 0.06018 * (width - maxWidth))
   return minGap + (maxGap - minGap) * ((width - minWidth) / (maxWidth - minWidth))
 }
@@ -119,7 +121,10 @@ export function CircularTestimonials({
 
   function getImageStyle(index: number): React.CSSProperties {
     const gap = calculateGap(containerWidth)
-    const maxStickUp = gap * 0.8
+    const isCompact = containerWidth < 640
+    const maxStickUp = gap * (isCompact ? 0.5 : 0.8)
+    const sideScale = isCompact ? 0.78 : 0.86
+    const sideRotate = isCompact ? 10 : 15
     const isActive = index === activeIndex
     const isLeft = (activeIndex - 1 + testimonialsLength) % testimonialsLength === index
     const isRight = (activeIndex + 1) % testimonialsLength === index
@@ -144,7 +149,7 @@ export function CircularTestimonials({
         zIndex: 2,
         opacity: 1,
         pointerEvents: 'auto',
-        transform: `translateX(-${gap}px) translateY(-${maxStickUp}px) scale(0.86) rotateY(15deg)`,
+        transform: `translateX(-${gap}px) translateY(-${maxStickUp}px) scale(${sideScale}) rotateY(${sideRotate}deg)`,
       }
     }
     if (isRight) {
@@ -153,7 +158,7 @@ export function CircularTestimonials({
         zIndex: 2,
         opacity: 1,
         pointerEvents: 'auto',
-        transform: `translateX(${gap}px) translateY(-${maxStickUp}px) scale(0.86) rotateY(-15deg)`,
+        transform: `translateX(${gap}px) translateY(-${maxStickUp}px) scale(${sideScale}) rotateY(-${sideRotate}deg)`,
       }
     }
     return {
@@ -178,7 +183,7 @@ export function CircularTestimonials({
         <div className="md:col-span-7">
           <div
             ref={imageContainerRef}
-            className="relative h-[22rem] w-full [perspective:1000px] md:h-[26rem]"
+            className="relative h-[18rem] w-full [perspective:1000px] sm:h-[22rem] md:h-[26rem]"
           >
             {testimonials.map((t, index) => (
               <img

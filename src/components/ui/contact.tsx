@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useState } from 'react'
-import { MessageCircle } from 'lucide-react'
+import { Camera, MessageCircle } from 'lucide-react'
 
 import { company } from '../../lib/company'
 import { buildWhatsAppLink } from '../../lib/links'
@@ -165,12 +165,31 @@ export function ContactSection({
               </h3>
 
               <div className="mt-6 border-b border-white/10 pb-6">
-                <p className="text-xs font-semibold uppercase tracking-wider text-white/40">
-                  WhatsApp
-                </p>
-                <p className="mt-1 text-sm font-semibold text-white/80">
-                  {whatsappPhone}
-                </p>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-white/40">
+                      WhatsApp
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-white/80">
+                      {whatsappPhone}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-white/40">
+                      Instagram
+                    </p>
+                    <a
+                      href={company.contact.instagram.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1 inline-flex items-center gap-2 text-sm font-semibold text-white/80 transition-colors hover:text-drm-yellow-500"
+                    >
+                      <Camera className="h-4 w-4" />
+                      {company.contact.instagram.handle}
+                    </a>
+                  </div>
+                </div>
               </div>
 
               <form onSubmit={handleSubmit} className="mt-8 space-y-6">

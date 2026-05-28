@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, MapPin, Phone } from 'lucide-react'
+import { Camera, Mail, MapPin, Phone } from 'lucide-react'
 
 import { company } from '../../lib/company'
 import { cn } from '../../lib/utils'
@@ -221,6 +221,17 @@ export function HoverFooter() {
                 ) : (
                   <span>{company.contact.phones[0] ?? ''}</span>
                 )}
+              </li>
+              <li className="flex items-center gap-3">
+                <Camera className="h-4 w-4 text-drm-yellow-500" />
+                <a
+                  href={company.contact.instagram.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-white"
+                >
+                  {company.contact.instagram.handle}
+                </a>
               </li>
             </ul>
           </div>

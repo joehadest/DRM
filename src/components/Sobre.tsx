@@ -39,7 +39,7 @@ function StatCard({ value, label, index }: { value: string; label: string; index
       initial={{ opacity: 0, y: 16 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      className="flex flex-col items-center rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-sm sm:items-start"
+      className="drm-card-interactive-motion flex flex-col items-center rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-sm sm:items-start"
     >
       <span className="text-3xl font-bold tracking-tight text-drm-yellow-500 sm:text-4xl">
         {value}
@@ -180,9 +180,9 @@ export function Sobre() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.4 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="flex flex-col gap-3 px-8 py-8"
+                className="group flex flex-col gap-3 px-8 py-8 transition-colors duration-300 hover:bg-white/[0.04]"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-drm-yellow-500/10 ring-1 ring-drm-yellow-500/25">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-drm-yellow-500/10 ring-1 ring-drm-yellow-500/25 transition-colors duration-300 group-hover:bg-drm-yellow-500/20">
                   <Icon className="h-5 w-5 text-drm-yellow-500" />
                 </div>
                 <p className="text-sm font-bold tracking-wide text-white">{pillar.title}</p>
